@@ -1,0 +1,72 @@
+<div class="container mt-4">
+  <h3>Manager Reports</h3>
+
+  <div class="list-group">
+    <button class="list-group-item list-group-item-action" (click)="loadPRReport()">
+      📄 Purchase Request Lifecycle
+    </button>
+    <P>|</P>
+    <button class="list-group-item list-group-item-action" (click)="loadStockReport()">
+      📦 Current Item Stock Report List
+    </button>
+  </div>
+
+  <!-- ================= PR REPORT ================= -->
+  <div class="mt-4" *ngIf="prReport.length > 0">
+    <h5>PR Lifecycle Report</h5>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>PR No</th>
+          <th>Title</th>
+          <th>Items</th>
+          <th>Raised On</th>
+          <th>Approved On</th>
+          <th>Paid On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pr of prReport">
+          <td>{{ pr.prId }}</td>
+          <td>{{ pr.title }}</td>
+          <td>{{ pr.itemCount }}</td>
+          <td>{{ pr.raisedAt | date : 'short' }}</td>
+          <td>{{ pr.approvedAt | date : 'short' }}</td>
+          <td>{{ pr.paidAt | date : 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= STOCK REPORT ================= -->
+  <div class="mt-4" *ngIf="stockReport.length > 0">
+    <h5>Stock Report</h5>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Batch</th>
+          <th>Item</th>
+          <th>MRP</th>
+          <th>Cost</th>
+          <th>Qty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of stockReport">
+          <td>{{ s.batch }}</td>
+          <td>{{ s.itemName }}</td>
+          <td>₹ {{ s.salePrice }}</td>
+          <td>₹ {{ s.costPrice }}</td>
+          <td>{{ s.quantity }} Pcs.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= EMPTY STATE ================= -->
+  <div class="mt-4 text-muted" *ngIf="prReport.length === 0 && stockReport.length === 0">
+    Select a report to view data.
+  </div>
+</div>
